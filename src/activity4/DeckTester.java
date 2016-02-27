@@ -54,5 +54,10 @@ public class DeckTester {
 		System.out.println();
 
 		/* *** TO BE COMPLETED IN ACTIVITY 4 *** */
+                String[] fullranks = {"Ace","2","3","4","5","6","7","8","9","10","Jack", "Queen", "King"};
+                String[] fullsuits = {"Diamonds", "Clubs", "Hearts", "Spades"};
+                int[] fullvalues = {1,2,3,4,5,6,7,8,9,10,11,12,13};
+                Deck fulldeck = new Deck(fullranks,fullsuits,fullvalues);
+                System.out.println(fulldeck.toString());
 	}
 }

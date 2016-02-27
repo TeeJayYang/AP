@@ -65,6 +65,12 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+            for (int x = (cards.size()-1);x>0;x--){
+                int r = (int)(Math.random()*x);
+                Card temp = cards.get(r);
+                cards.set(r, cards.get(x));
+                cards.set(x,temp);
+            }
 	}
 
 	/**
