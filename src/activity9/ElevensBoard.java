@@ -56,7 +56,13 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-                return (selectedCards.size()==2 || selectedCards.size()==3);
+                if (selectedCards.size()==2){
+                    return (containsPairSum11(selectedCards));
+                }
+                else if (selectedCards.size()==3){
+                    return (containsJQK(selectedCards));
+                }
+                else return false;
 	}
 
 	/**
@@ -70,16 +76,16 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-                boolean playPossibleSum = false;
                 for (int x = 0; x<super.size()-1;x++){
                     for (int y = x+1; y< super.size();y++){
                         List<Integer> selectedCards = new ArrayList<>();
                         selectedCards.add(x);
                         selectedCards.add(y);
-                        playPossibleSum = containsPairSum11(selectedCards);
+                        if (containsPairSum11(selectedCards)){
+                            return true;
+                        }
                     }
                 }
-                boolean playPossibleRoyal = false;
                 for (int x = 0; x<super.size()-2;x++){
                     for (int y=x+1;y<super.size()-1;y++){
                         for (int z=y+1;z<super.size();z++){
@@ -87,14 +93,16 @@ public class ElevensBoard extends Board {
                             selectedCards.add(x);
                             selectedCards.add(y);
                             selectedCards.add(z);
-                            playPossibleRoyal = containsJQK(selectedCards);
+                            if (containsJQK(selectedCards)){
+                                return true;
+                            }
                         }
                     }
                 }
                 if (I_AM_DEBUGGING){
-                    System.out.println("This function has been ran");
+                    System.out.println("Another play is not possible");
                 }
-                return (playPossibleSum || playPossibleRoyal);
+                return false;
 	}
 
 	/**
@@ -110,6 +118,9 @@ public class ElevensBoard extends Board {
                 int total = 0;
                 for(int x: selectedCards){
                     total+= super.cardAt(x).pointValue();
+                }
+                if (I_AM_DEBUGGING){
+                    System.out.println("Contains Sum of 11: " + (total==11));
                 }
                 return(total==11);
 	}
@@ -139,9 +150,7 @@ public class ElevensBoard extends Board {
                     }
                 }
                 if (I_AM_DEBUGGING){
-                    System.out.println("hasJack: " + hasJack);
-                    System.out.println("hasQueen: " + hasQueen);
-                    System.out.println("hasKing: " + hasKing);
+                    System.out.println("Has JQK: " + (hasJack&&hasQueen&hasKing));
                 }
                 return (hasJack&&hasQueen&hasKing);
 	}
